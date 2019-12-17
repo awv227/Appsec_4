@@ -1,0 +1,37 @@
+#Application Security
+#Andrew Vittetoe
+#02DEC2019
+#Assignment #4
+
+
+version: '3.3'
+
+services:
+  app:
+    image: app
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    secrets:
+      - admin_uname
+      - admin_pword
+      - admin_mfa
+      - CSRF_Token
+
+secrets:
+  admin_uname:
+    file: ./admin_uname.txt
+  admin_pword:
+    file: ./admin_pword.txt
+  admin_mfa:
+    file: ./admin_mfa.txt
+  CSRF_Token:
+    file: ./CSRF_Token.txt
